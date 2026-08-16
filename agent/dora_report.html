@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport DORA</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 12px;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #003366;
+            color: white;
+            padding: 30px 40px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        .content {
+            padding: 20px 40px;
+        }
+        h1 { color: #003366; font-size: 20px; border-bottom: 2px solid #003366; padding-bottom: 5px; }
+        h2 { color: #003366; font-size: 16px; margin-top: 25px; }
+        h3 { color: #0055a4; font-size: 14px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+            padding: 8px;
+            text-align: left;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        .footer {
+            background-color: #f5f5f5;
+            border-top: 2px solid #003366;
+            padding: 15px 40px;
+            font-size: 10px;
+            color: #666;
+            margin-top: 30px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .severity-critical { color: #cc0000; font-weight: bold; }
+        .severity-major { color: #ff6600; font-weight: bold; }
+        .severity-minor { color: #ffaa00; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏦 RAPPORT D'INCIDENT DORA</h1>
+        <p>Digital Operational Resilience Act — EU Regulation 2022/2554</p>
+        <p>Généré le : 16/08/2026 à 16:05:30</p>
+        <p>Système : Spring Boot Microservices Banking Application</p>
+    </div>
+    <div class="content">
+        <h1 id="rapport-dincident-dora-digital-operational-resilience-act">RAPPORT D'INCIDENT DORA (Digital Operational Resilience Act)</h1>
+
+<p><strong>Entité Financière :</strong> Infrastructure Bancaire Centrale<br />
+<strong>Date du rapport :</strong> 16 août 2026<br />
+<strong>Statut de l'incident :</strong> Clôturé / En cours de stabilisation  </p>
+
+<hr />
+
+<h2 id="1-resume-executif">1. Résumé Exécutif</h2>
+
+<ul>
+<li><strong>Description de l'incident :</strong> Perte critique de la haute disponibilité du plan de contrôle Kubernetes (<code>Control Plane</code>) et des composants fondamentaux de l'infrastructure (<code>etcd</code>, <code>kube-scheduler</code>, <code>kube-controller-manager</code>, <code>kube-proxy</code>). En parallèle, des instabilités chroniques ont été observées sur les microservices applicatifs et l'outil de déploiement ArgoCD.</li>
+<li><strong>Date et heure de détection :</strong> 2026-08-16 à 13:18:25 UTC (première occurrence) avec une récurrence confirmée à 13:46:46 UTC.</li>
+<li><strong>Sévérité :</strong> <strong>CRITIQUE</strong> (Impact majeur sur la résilience opérationnelle et la continuité des services financiers).</li>
+<li><strong>Services impactés :</strong> 
+<ul>
+<li>Plan de contrôle Kubernetes (etcd, scheduler, controller-manager, proxy).</li>
+<li>Outils de supervision et de déploiement (<code>prometheus-grafana</code>, <code>argocd-applicationset-controller</code>).</li>
+<li>Microservices métiers (fort taux de redémarrages constatés sur les pods applicatifs, témoignant d'une instabilité sous-jacente).</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2 id="2-timeline-detaillee">2. Timeline Détaillée</h2>
+
+<ul>
+<li><strong>2026-08-16T13:18:25Z (Première détection) :</strong> 
+<ul>
+<li>Alerte initiale de Prometheus : Perte de cibles critiques dans le namespace <code>kube-system</code> (<code>etcd</code>, <code>kube-proxy</code>, <code>kube-scheduler</code>, <code>kube-controller-manager</code>) et dans <code>monitoring</code> (<code>prometheus-grafana</code>).</li>
+<li>Détection de la saturation de nœud (<code>NodeSystemSaturation</code>, charge CPU &gt; 2 sur 15 min, pic à 3.29).</li>
+<li>Signalement de pods en <code>CrashLoopBackOff</code> (<code>argocd-applicationset-controller</code> et <code>prometheus-grafana</code>).</li>
+<li>Passage des services du plan de contrôle à l'état <code>DOWN (up=0)</code> (IDs 17 à 21).</li>
+</ul></li>
+<li><strong>13:18 - 13:46 UTC (Phase d'escalade) :</strong> 
+<ul>
+<li>Persistance des instances injoignables pendant plus de 15 minutes.</li>
+</ul></li>
+<li><strong>2026-08-16T13:46:46Z (Seconde vague / Confirmation) :</strong> 
+<ul>
+<li>Nouvelle série d'alertes confirmant l'indisponibilité continue des composants du control plane et des services de supervision (IDs 34 à 53).</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2 id="3-analyse-de-limpact">3. Analyse de l'Impact</h2>
+
+<ul>
+<li><strong>Services bancaires affectés :</strong> Bien que les pods des microservices (<code>account-service</code>, <code>fund-transfer</code>, <code>transaction-service</code>, <code>user-service</code>, <code>api-gateway</code>) rapportent un statut <code>Running</code> avec un niveau élevé de redémarrages cumulés (ex: <code>user-service</code> à 120 restarts, <code>transaction-service</code> à 78 restarts), l'intégrité globale de la plateforme est compromise par la perte du plan de contrôle Kubernetes.</li>
+<li><strong>Durée d'indisponibilité estimée :</strong> &gt; 30 minutes de dégradation sévère de l'infrastructure de gestion.</li>
+<li><strong>Transactions potentiellement impactées :</strong> Risque élevé de rejet ou de timeout sur les flux de paiements (<code>fund-transfer</code>) et les requêtes de comptes en raison de la saturation des nœuds et de l'instabilité des passerelles API.</li>
+</ul>
+
+<hr />
+
+<h2 id="4-cause-racine-rca">4. Cause Racine (RCA)</h2>
+
+<ul>
+<li><strong>Cause principale identifiée :</strong> Saturation critique des ressources des nœuds de l'infrastructure (<code>NodeSystemSaturation</code> avec une charge système par cœur atteignant 3.29), entraînant le gel ou l'éviction des composants critiques du système (<code>etcd</code>, <code>kube-scheduler</code>, <code>kube-controller-manager</code>).</li>
+<li><strong>Facteurs contributifs :</strong>
+<ul>
+<li>Instabilité applicative chronique matelassée par un nombre anormalement élevé de redémarrages de pods (restarts excessifs sur les services métiers : <code>user-service</code>, <code>transaction-service</code>, <code>account-service</code>), pesant sur la stabilité globale de l'hyperviseur/cluster.</li>
+<li>Défaillance concomitante des outils de supervision (<code>Prometheus/Grafana</code> en boucle de crash), réduisant la visibilité en temps réel des équipes d'exploitation.</li>
+</ul></li>
+<li><strong>Chaîne de causalité :</strong> Surcharge de calcul / fuite de ressources -> Saturation du nœud -> Perte de réactivité des composants du Control Plane Kubernetes (<code>etcd</code> / <code>kube-proxy</code>) -> Indisponibilité des services système -> Effet domino sur la supervision et les contrôleurs de déploiement.</li>
+</ul>
+
+<hr />
+
+<h2 id="5-actions-de-remediation">5. Actions de Remédiation</h2>
+
+<ul>
+<li><strong>Actions immédiates prises :</strong> 
+<ul>
+<li>Identification des services en échec via les sondes de Prometheus.</li>
+<li>Collecte des métriques d'infrastructure et des états de pods.</li>
+</ul></li>
+<li><strong>Actions correctives planifiées :</strong>
+<ul>
+<li>Redémarrage à froid et rééquilibrage de la charge sur les nœuds du cluster Kubernetes.</li>
+<li>Investigation approfondie sur les causes des <code>CrashLoopBackOff</code> des pods <code>argocd</code> et <code>prometheus-grafana</code>.</li>
+</ul></li>
+<li><strong>Mesures préventives :</strong>
+<ul>
+<li>Ajustement des limites et des requêtes de ressources (<code>CPU/Memory Requests &amp; Limits</code>) pour l'ensemble des microservices afin d'éviter la saturation des nœuds.</li>
+<li>Optimisation des sondes de vivacité (<code>liveness probes</code>) et de préparation (<code>readiness probes</code>).</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2 id="6-conformite-dora">6. Conformité DORA</h2>
+
+<ul>
+<li><strong>Article 17 (Gestion des incidents TIC) :</strong> 
+<ul>
+<li>L'incident a fait l'objet d'un enregistrement exhaustif des données de télémétrie (logs Loki, métriques Prometheus, états K8s). Les procédures de détection et de consignation ont permis de documenter l'événement avec précision.</li>
+</ul></li>
+<li><strong>Article 18 (Classification des incidents TIC) :</strong> 
+<ul>
+<li>Cet incident est qualifié d'<strong>incident TIC majeur</strong> au sens de DORA, impactant la continuité des services financiers essentiels (interruption des composants d'infrastructure critiques, nombre de clients/transactions potentiellement touchés, criticité des actifs affectés).</li>
+</ul></li>
+<li><strong>Article 19 (Notification des incidents TIC graves) :</strong> 
+<ul>
+<li>Compte tenu de la criticité de la défaillance du plan de contrôle et des services bancaires de premier plan, une analyse d'éligibilité pour une notification aux autorités compétentes (ex: BCE / Autorité nationale de régulation) doit être immédiatement initiée conformément aux seuils réglementaires DORA.</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2 id="7-recommandations">7. Recommandations</h2>
+
+<ul>
+<li><strong>Améliorations de résilience opérationnelle :</strong> 
+<ul>
+<li>Mettre en place une architecture multi-maîtres (<code>multi-master control plane</code>) hautement résiliente pour éviter tout point de défaillance unique (SPOF) sur <code>etcd</code> et le plan de contrôle.</li>
+</ul></li>
+<li><strong>Renforcement du monitoring :</strong> 
+<ul>
+<li>Découpler l'infrastructure de supervision du cluster principal ou garantir sa haute disponibilité prioritaire pour éviter sa cécité lors des crises de saturation.</li>
+</ul></li>
+<li><strong>Tests de résilience recommandés :</strong> 
+<ul>
+<li>Réaliser des tests de chaos engineering (<code>Chaos Engineering</code>) ciblant spécifiquement la résilience d'<code>etcd</code> et la saturation des nœuds pour valider les mécanismes de bascule automatique.</li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="footer">
+        <p>Document confidentiel — Rapport d'incident TIC conforme au règlement DORA (UE) 2022/2554</p>
+        <p>Articles 17 (Gestion des incidents), 18 (Classification), 19 (Notification aux autorités)</p>
+        <p>Généré automatiquement par le système DORA Evidence Collector</p>
+    </div>
+</body>
+</html>
